@@ -21,4 +21,4 @@ My goals for the semester:
 
 
 # Table of Contents
-[Link to New and Improved Assignment 1](assignments/newassignment1.md)
+[Link to Assignment 1](assignments/assignment1.md)
