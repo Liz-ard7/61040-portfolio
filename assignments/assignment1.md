@@ -74,17 +74,49 @@
 
 ---
 ## Evidence
->> Lost fanfic
->> Fanfic recs
->> Wishes for main pairings
->> Get rid of those ginormous Seagull fics where they tag everything
->> People moping about lack of comments
+
+### Fanfiction: Better Fic Finder
+1. On AO3, there are 184,980 fanfictions with the tag "How Do I Tag?", indicating that they do not understand how to tag, and would thus benefit from a feature that would help teach authors to tag. [source](https://archiveofourown.org/tags/How%20Do%20I%20Tag/works)
+2. [AO3 Enhancements](https://chromewebstore.google.com/detail/ao3-enhancements/eljennickgdbghppcaenkcinjafmnfoi?pli=1): A Chrome extension with 10,000 users used to sort for higher quality fanfictions. Does not improve on the search function, however, and still uses the tagging system.
+3. [AO3 First Tag Search](https://chromewebstore.google.com/detail/ao3-first-tag-search/bmbpikjcekglfidkmhafdelaiimbgnpa): Another Chrome extension that tries to make the search more accurate for overtagged fanfictions, by removing fanfictions that don't have a specific pairing first. This isn't perfect, though, since this only works for relationship tags, and even then, doesn't work all of the times because people often tag other relationships before the main relationship. Furthermore, it has been removed from Chrome.
+4. [What are some tags you think everyone should know? What are some tags you wish people would use more?](https://www.reddit.com/r/FanFiction/comments/zsnae5/what_are_some_tags_you_think_everyone_should_know/) reveals the fact that many authors, even ones that are seasoned fanfic writers, still don't know to tag for certain things, like (Character)-centric fics, where that character is the main character, which make searching through fanfics frusturating. One commenter in particular laments this fact, saying that they miss out on a ton of fics that have what they're looking for just because other authors overtag their work.
+5. [I wish AO3 let you specify “can include” vs “does include” for tag search](https://www.reddit.com/r/FanFiction/comments/1l40rl4/i_wish_ao3_let_you_specify_can_include_vs_does/) shows that, even though fanfic readers use the site a lot, they don't actually know how to use it! There is a function that the poster is looking for embedded in AO3, but there's nowhere obvious that that is found, thus, the poster didn't even know about it.
+6. [a03 (sic) and over tagging](https://www.reddit.com/r/FanFiction/comments/eo29f4/a03_and_over_tagging/) again shows that readers are frustrated at authors overtagging their fics, bloating the tags they are actually looking for.
+7. [Lost Fic Tag On Reddit](https://www.reddit.com/r/FanFiction/?f=flair_name%3A%22Lost%20Fic%22) shows that there is an entire post tag on Reddit just for finding fics that they can no longer find. If there was an improved search bar, this wouldn't need to be a thing.
+8. [Recs Wanted Tag On Reddit](https://www.reddit.com/r/FanFiction/?f=flair_name%3A%22Recs%20Wanted%22) shows there is an entire post tag on Reddit for people to discover fics that are too niche for them to find using AO3's current search method.
+9. [Hidden Search Operators Cheatsheet](https://archiveofourown.org/admin_posts/10851): a helpful guide to searching on AO3, but unless you know to look for this post, you would never find it. This guide isn't on any of the search bar areas, and only shows up if you look through countless admin blog posts on AO3.
+10. [Archive FAQ -> Tags](https://archiveofourown.org/faq/tags?language_id=en): is a FAQ on AO3 showing how often people are confused by the tagging system. Again, this is a pretty difficult post to find that isn't even complete yet. On the main FAQ section, they directly say that it is a work in progress and that not all information is available yet.
+11. [How to search for fanfics?](https://www.reddit.com/r/FanFiction/comments/1n2r7ge/how_to_search_for_fanfics/) shows how users are unable to search for fics based on things like plotlines and tropes, because they are hardly ever tagged. They wonder how to search for a common trope, but because tagging is all over the place, they can't really find it. This lends credence to the fact that AO3 has a steep learning curve to tagging and searching. It also shows that people can be somewhat unfriendly to those who are new to fanfic, judging by how their confused comment and post are all disliked (downvoted).
+
+### Memories: Fading Memories
+1. [Rambling Old Man Monologue](https://tvtropes.org/pmwiki/pmwiki.php/Main/RamblingOldManMonologue) shows that people wanting to convey their memories to others is a widespread enough issue that there is an entire trope dedicated to it, based in reality.
+2. [Remembered.com](https://remembered.com/#:~:text=Welcome%20to%20Remembered.com%20%2D%20Free%20Online%20Memorial%20Websites&text=Enshrine%20your%20photos%2C%20memories%2C%20and,Easy%20as%201%2C%202%203%20!) shows that although there are some websites dedicated to memories, these are mostly of deceased relatives, and not used for simply remembering good times from all times, not just deceased ones.
+3. [I'm afraid of getting old and forgetting things.](https://www.reddit.com/r/simpleliving/comments/tkw1qi/im_afraid_of_getting_old_and_forgetting_things/) shows how some people are terrified at the thought of not remembering all their best moments.
+4. [The Fear of Forgetting Them](https://www.coachingwithkrista.com/fear-of-forgetting-them/) shows how, after someone is deceased, oftentimes people can be afraid of forgetting what they were like.
+5. [Memory Hoarding](https://www.reddit.com/r/AskOldPeople/comments/1cn5rdc/memory_hoarding/) shows that oftentimes people will "hoard" things that remind them of good times. What if they could do this, but with actual stories instead?
+6. [How do I get over sentimental hoarding](https://www.reddit.com/r/ADHD/comments/14q84il/how_do_i_get_over_sentimental_hoarding/) discusses this person's issues with not wanting to get rid of physical items that remind them of a fond memory, over fear of forgetting the memory. If they had a way to remember the memory, they wouldn't have to hoard these items.
+7. [RememberingALife.com](https://www.rememberingalife.com/blogs/blog/honoring-loved-ones-through-stories) shows the writer's husband, after a terminal diagnosis, did not want his memories to die with him, and recorded 60 hours worth of memories.
+8. [ModernHeirloomBooks.com](https://www.modernheirloombooks.com/35-questions-to-ask-to-prompt-memories-of-lost-loved-one-tribute-book) shows that some people find collecting stories and memories of people to be therapeutic.
+9. [Is there a way to find out a deceased person’s history without direct ties to their bio family?](https://www.reddit.com/r/NoStupidQuestions/comments/qznnon/is_there_a_way_to_find_out_a_deceased_persons/) shows that although people want to find out more about relatives long deceased, sometimes it can be difficult and you must be sleuthy.
+10. [I'm not afraid of death. I'm afraid of losing the experiences and memories of people I loved.](https://www.reddit.com/r/depression/comments/1auzunz/im_not_afraid_of_death_im_afraid_of_losing_the/) shows how people are afraid of dying because they'd be forgetting all of their best experiences and people they loved. It would be beneficial if they knew their best memories were kept somewhere safe.
+
+### Costuming: Limited Use Outfit
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
 
 ---
 ## Features
 ### Fanfiction: Better Fic Finder
 1. **A Better Search Algorithm**: Instead of using tags from the author, why not see what the story itself has to say? A better way would be, in addition to the search system already present, to have a search bar that you could type a blurb of the media, characters, relationship, plot, themes, tone, etc. of the story you wish to read about, and then it tries to find a fic like that based on the story contents. Readers would have an easier time finding fics they want to read, authors would be able to have a wider range of audiences that are actually interested in their story, and staff wouldn't have to spend so much time wrangling tags and putting them in boxes.
-2. **If You Like Blank**: At the end of a fic, having a system that recommends other fics that are similar to the fic the reader just read would help readers find fics they already like, based on the contents/tags of the story. This would also help boost authors engagement.
+2. **If You Like Blank**: At the end of a fic, having a system that recommends other fics that are similar to the fic the reader just read would help readers find fics they already like, based on the contents/tags of the story. This would also help boost authors engagement. Furthermore, on the reader's profile, there could be suggested fics based on their favorite fics that they've saved.
 3. **Suggested Tags**: When an author uploads their story and adds tags for readers to find their story, based on the story contents, there would be suggested tags for people to add, to help teach the newcomers about tags and make their work more visible. This would boost the author's engagement, and help staff not have to wrangle several variations of the same tag since it has already been marked.
 4. **Main character/relationship**: In bold, at the top of the tag list, authors would put their main characters and relationships that the story is about, and they would have a limited amount of tags to use. This way, readers have an easier time discerning fics that are actually about the characters they like, rather than someone they don't really care for. Moreover, authors won't have disappointed readers complaining that their favorite character hasn't shown up yet.
 
