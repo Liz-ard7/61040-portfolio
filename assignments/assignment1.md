@@ -89,11 +89,11 @@
 11. [How to search for fanfics?](https://www.reddit.com/r/FanFiction/comments/1n2r7ge/how_to_search_for_fanfics/) shows how users are unable to search for fics based on things like plotlines and tropes, because they are hardly ever tagged. They wonder how to search for a common trope, but because tagging is all over the place, they can't really find it. This lends credence to the fact that AO3 has a steep learning curve to tagging and searching. It also shows that people can be somewhat unfriendly to those who are new to fanfic, judging by how their confused comment and post are all disliked (downvoted).
 
 ### Memories: Fading Memories
-1. [Rambling Old Man Monologue](https://tvtropes.org/pmwiki/pmwiki.php/Main/RamblingOldManMonologue) shows that people wanting to convey their memories to others is a widespread enough issue that there is an entire trope dedicated to it, based in reality.
+1. [Rambling Old Man Monologue](https://tvtropes.org/pmwiki/pmwiki.php/Main/RamblingOldManMonologue) shows that people wanting to convey their memories to others is a widespread enough issue that there is an entire trope dedicated to it, based from reality.
 2. [Remembered.com](https://remembered.com/#:~:text=Welcome%20to%20Remembered.com%20%2D%20Free%20Online%20Memorial%20Websites&text=Enshrine%20your%20photos%2C%20memories%2C%20and,Easy%20as%201%2C%202%203%20!) shows that although there are some websites dedicated to memories, these are mostly of deceased relatives, and not used for simply remembering good times from all times, not just deceased ones.
 3. [I'm afraid of getting old and forgetting things.](https://www.reddit.com/r/simpleliving/comments/tkw1qi/im_afraid_of_getting_old_and_forgetting_things/) shows how some people are terrified at the thought of not remembering all their best moments.
 4. [The Fear of Forgetting Them](https://www.coachingwithkrista.com/fear-of-forgetting-them/) shows how, after someone is deceased, oftentimes people can be afraid of forgetting what they were like.
-5. [Memory Hoarding](https://www.reddit.com/r/AskOldPeople/comments/1cn5rdc/memory_hoarding/) shows that oftentimes people will "hoard" things that remind them of good times. What if they could do this, but with actual stories instead?
+5. [Memory Hoarding](https://www.reddit.com/r/AskOldPeople/comments/1cn5rdc/memory_hoarding/) shows that oftentimes people will keep things that remind them of good times in boxes or someplace safe. What if they could do this, but with actual stories instead online?
 6. [How do I get over sentimental hoarding](https://www.reddit.com/r/ADHD/comments/14q84il/how_do_i_get_over_sentimental_hoarding/) discusses this person's issues with not wanting to get rid of physical items that remind them of a fond memory, over fear of forgetting the memory. If they had a way to remember the memory, they wouldn't have to hoard these items.
 7. [RememberingALife.com](https://www.rememberingalife.com/blogs/blog/honoring-loved-ones-through-stories) shows the writer's husband, after a terminal diagnosis, did not want his memories to die with him, and recorded 60 hours worth of memories.
 8. [ModernHeirloomBooks.com](https://www.modernheirloombooks.com/35-questions-to-ask-to-prompt-memories-of-lost-loved-one-tribute-book) shows that some people find collecting stories and memories of people to be therapeutic.
@@ -101,16 +101,16 @@
 10. [I'm not afraid of death. I'm afraid of losing the experiences and memories of people I loved.](https://www.reddit.com/r/depression/comments/1auzunz/im_not_afraid_of_death_im_afraid_of_losing_the/) shows how people are afraid of dying because they'd be forgetting all of their best experiences and people they loved. It would be beneficial if they knew their best memories were kept somewhere safe.
 
 ### Costuming: Limited Use Outfit
-1.
-2.
-3.
-4.
-5.
-6.
-7.
-8.
-9.
-10.
+1. [Is sewing clothing and costumes actually cost effective or is it an expensive hobby?](https://www.reddit.com/r/sewing/comments/11qu9cn/is_sewing_clothing_and_costumes_actually_cost/): shows most people consider creating their own costumes incredibly expensive.
+2. [Why Halloween Waste is the Scariest Monster of Them All in 2025](https://www.wastemanaged.co.uk/our-news/halloween/halloween-waste/) details how a study showed that 83% of costumes for Halloween were created with plastics which made the costume destined to end up in a landfill. Also, 7 million costumes are thrown out in the UK every Halloween and 4 out of 10 costumes are only worn once.
+3. [Ask NYT Climate: How Can I Slash Halloween Waste?](https://www.beyondplastics.org/news-stories/nyt-cut-halloween-waste) recommends the reader to buy their Halloween costumes second-hand.
+4. [What To Do With Old Costumes](https://thelewisfoundation.org/2019/11/old-costume/) suggests people give away their old costumes or reuse them in a way.
+5. [[Discussion] What do you do with your costume after wearing it?](https://www.reddit.com/r/cosplayers/comments/3hn8lc/discussion_what_do_you_do_with_your_costume_after/) shows how many people end up putting used costumes in storage and cluttering up their space.
+6. [Costume Swap](https://www.niwa.org/otaku-smash-programs) for some costumers, they swap costumes with one another after they are done with them. But what about the people who don't have a costume already?
+7. [If you sew your cosplays by yourself: what do you do with them afterwards?](https://www.reddit.com/r/CosplayHelp/comments/1ky7efp/if_you_sew_your_cosplays_by_yourself_what_do_you/) shows how some costumers struggle with space after creating their costumes. Some commenters even admitted to keeping costumes they haven't reworn that are decades old, then admit that they think their next move would be to throw it away.
+8. [5 Things to Do With Your Old Cosplays](https://cosplayadvice.com/what-to-do-with-your-old-cosplays/) suggest donating their costumes, selling them to other cosplayers, storing them, or throwing them away.
+9. [What to do with your costumes after Halloween](https://www.wjbf.com/csra-news/what-to-do-with-your-halloween-costume-after-halloween/) suggests costumers to swap costumes with friends or family.
+10. [Cosplay Costume Fabric, Materials & Supplies](https://www.parkinfabrics.co.uk/collections/cosplay/products/veg-tan-leather) shows how popular material for costumes can be expensive (32$).
 
 ---
 ## Features
