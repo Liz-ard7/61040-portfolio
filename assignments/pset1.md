@@ -36,68 +36,116 @@ Using generic types for item makes it much easier to describe and DRYs (don't re
 ## Exercise 2
 ### Complete the definition of the concept state and write a requires/effects specification for each of the two actions
 **concept** PasswordAuthentication
+
 **purpose** limit access to known users
+
 **principle** after a user registers with a username and a password,
 they can authenticate with that same username and password
 and be treated each time as the same user
+
 **state**
+
 a set of Users with
-    a username String
-    a password String
+
+> a username String
+
+> a password String
+
 **actions**
+
 **register** (username: String, password: String): (user: User)
-    **requires** the username does not exist
-    **effects** creates a new User with the username username and password password, adds it to the set of Users, then returns it
+
+> **requires** the username does not exist
+
+> **effects** creates a new User with the username username and password password, adds it to the set of Users, then returns it
+
 **authenticate** (username: String, password: String): (user: User)
-    **requires** requires the username to exist in the set of Users and for said user to have a matching username and password
-    **effects** returns the User associated with the username and password
+
+> **requires** requires the username to exist in the set of Users and for said user to have a matching username and password
+
+> **effects** returns the User associated with the username and password
 
 ### What essential invariant must hold on the state? How is it preserved?
 All usernames are unique within the set of Users. It is preserved because when one registers, it requires the username to not exist previously, thus the new username must be different from all previous ones.
 
 ### One widely used extension of this concept requires that registration be confirmed by email. Extend the concept to include this functionality
+
 **concept** PasswordAuthentication
+
 **purpose** limit access to known users
+
 **principle** after a user registers with a username and a password,
 they can authenticate with that same username and password
 and be treated each time as the same user
+
 **state**
+
 a set of Users with
-    a username String
-    a password String
-    a token Number
-    an emailConfirmed Boolean
+
+> a username String
+
+> a password String
+
+> a token Number
+
+> an emailConfirmed Boolean
+
 **actions**
+
 **register** (username: String, password: String, email: String): (user: User, token: Number)
-    **requires** the username does not exist
-    **effects** creates a new User with the username username, password password, emailConfirmed boolean False, and token token and adds it to the set of Users. Then, it emails the email provided a special token. Finally, it returns the user created.
+
+> **requires** the username does not exist
+
+> **effects** creates a new User with the username username, password password, emailConfirmed boolean False, and token token and adds it to the set of Users. Then, it emails the email provided a special token. Finally, it returns the user created.
+
 **confirm** (username: String, token: Number)
-    **requires** the username to exist in the set of Users and for the token to match the token associated with said User.
-    **effects** this sets the emailConfirmed Boolean to True.
+
+> **requires** the username to exist in the set of Users and for the token to match the token associated with said User.
+
+> **effects** this sets the emailConfirmed Boolean to True.
+
 **authenticate** (username: String, password: String): (user: User)
-    **requires** requires the username to exist in the set of Users, for said user to have a matching username and password, and for the emailConfirmed Boolean to be true.
-    **effects** returns the User associated with the username and password
+
+> **requires** requires the username to exist in the set of Users, for said user to have a matching username and password, and for the emailConfirmed Boolean to be true.
+
+> **effects** returns the User associated with the username and password
 
 ---
 ## Exercise 3
 
 ### Specification for PersonalAccessToken
+
 **concept** PersonalAccessToken
+
 **purpose** allow people with a token to access the token holder's resouces with limited permissions
+
 **principle** after a user with an account has created a Personal Access Token, anyone with this Personal Access Token can access the user's resources but with limited permissions (i.e. not "owner" status)
+
 **state**
-a set of Users with
-    a token Token
-a Token with
-    a tokenString String
-    a permission Permission
+
+> a set of Users with
+
+>    a token Token
+
+> a Token with
+
+>    a tokenString String
+
+>    a permission Permission
+
 **actions**
-createToken (user: User, permission: Permission): (token: Token)
-    **requires** user to be in the set of Users
-    **effects** creates a token by generating a tokenString, then coupling it with the permissions set for the token. Then, it returns the token.
-authenticate (username: String, tokenString: String): (user: User, token: Token)
-    **requires** the username to be associated with one of the Users in the set of Users and the tokenString to be associated with said User
-    **effects** returns access to the User's resources with token's permissions
+
+**createToken** (user: User, permission: Permission): (token: Token)
+
+>    **requires** user to be in the set of Users
+
+>    **effects** creates a token by generating a tokenString, then coupling it with the permissions set for the token. Then, it returns the token.
+
+**authenticate** (username: String, tokenString: String): (user: User, token: Token)
+
+>    **requires** the username to be associated with one of the Users in the set of Users and the tokenString to be associated with said User
+
+>    **effects** returns access to the User's resources with token's permissions
 
 ### How PersonalAccessToken differs from PasswordAuthentication
 A PersonalAccessToken differs from PasswordAuthentication because a PersonalAccessToken is used for people to access a user's account and resources but only with a limited set of permissions or scope, like having 'read-only' permissions and not being allowed to edit any of the files. On the other hand, a password is meant for the user of the account to gain access to *all* of their account, without it being locked behind any extra features. After all, there shouldn't be anyone with higher permissions than the owner of the account, who should have the password (and ideally, be the *only* one to have the password).
@@ -109,24 +157,44 @@ Put a much higher emphasis on what the token actually does and is meant to be us
 ---
 ## Exercise 4
 
-### THingy 1
+### Conference Room Booking
+
 **concept**
+
 **purpose**
+
 **principle**
+
 **state**
+
 **actions**
 
+**additional notes**
 
-### Thingy 2
+
+### URL Shortener
 **concept**
+
 **purpose**
+
 **principle**
+
 **state**
+
 **actions**
 
-### Thingy 3
+**additional notes**
+
+
+### Time-Based One-Time Password
 **concept**
+
 **purpose**
+
 **principle**
+
 **state**
+
 **actions**
+
+**additional notes**
