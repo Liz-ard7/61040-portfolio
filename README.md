@@ -22,3 +22,4 @@ My goals for the semester:
 
 # Table of Contents
 [Link to Assignment 1](assignments/assignment1.md)
+[Link to PSET 1](assignments/pset1.md)
