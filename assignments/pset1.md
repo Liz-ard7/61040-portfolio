@@ -44,7 +44,7 @@ I would change it so that the set of Requests's count Number does not decrease w
 
 ### Generic types
 
-Using generic types for item makes it much easier to describe and DRYs (don't repeat yourself) out the code. For each action above, you don't have to say stuff like purchase(item: Apple | Bagel | Pacifier | Cake | etc..) to show what can be purchased and what can't. It makes the code much easier to use and ready for change, because if you need to add/remove something to the store's inventory you don't have to go back through all this code and add/remove to this code to do so.
+Using generic types for item makes it much easier to describe and DRYs (don't repeat yourself) out the code, as generic types can be reused far easier. For each action above, you don't have to say stuff like purchase(item: Apple | Bagel | Pacifier | Cake | etc..) to show what can be purchased and what can't. It makes the code much easier to use and ready for change, because if you need to add/remove something to the store's inventory you don't have to go back through all this code and add/remove to this code to do so.
 
 ---
 
@@ -185,11 +185,13 @@ Put a much higher emphasis on what the token actually does and is meant to be us
 
 **purpose** to ensure conference rooms are available at the time the person who books it will use it
 
-**principle** the room controller lists the rooms, dates, and times available. The booker selects the room they want, the date they want, and the start time they want, then when they get to the room at that time and date, their room is ready for them and will continue to be empty until the end time.
+**principle** the room controller creates a room. For each room, the room controller lists dates and times available. The booker selects the room they want, the date they want, and the start time they want, then when they get to the room at that time and date, their room is ready for them and will continue to be empty until the end time.
 
 **state**
 
 a set of Rooms with
+
+&nbsp;&nbsp;&nbsp;&nbsp; a name
 
 &nbsp;&nbsp;&nbsp;&nbsp; a set of Bookings
 
@@ -223,15 +225,28 @@ a Slot with
 
 **addSlot**(room: Room, start: Time, date: Date): (slot: Slot)
 
-&nbsp;&nbsp;&nbsp;&nbsp; **requires** there to *not* already be this start Time and date already associated with a slot that's already associated with this room
+&nbsp;&nbsp;&nbsp;&nbsp; **requires** there to *not* already be this start Time and date already associated with a slot that's already associated with this room. Requires room to exist in the set of Rooms.
 
-&nbsp;&nbsp;&nbsp;&nbsp; **effects** creates a new slot, associates it with this time and date, then adds the newly-created slot to the room's list of available slots, and finally returns the slot.
+&nbsp;&nbsp;&nbsp;&nbsp; **effects**  creates a new slot, associates it with this time and date, then adds the newly-created slot to the room's list of available slots, and finally returns the slot.
 
 **deleteSlot**(slot: Slot, room: Room)
 
 &nbsp;&nbsp;&nbsp;&nbsp; **requires** for the slot to not already be associated with a Booking in the room
 
 &nbsp;&nbsp;&nbsp;&nbsp; **effects** removes the slot from the Room's available Slots
+
+**addRoom**(roomName: String): (room: Room)
+
+&nbsp;&nbsp;&nbsp;&nbsp; **requires** for the roomName to not be associated already with a room
+
+&nbsp;&nbsp;&nbsp;&nbsp; **effects** creates a new Room with an empty set of Bookings, empty set of available Slots, adds the Room to the set of Rooms, then returns the room.
+
+**deleteRoom**(room: Room)
+
+&nbsp;&nbsp;&nbsp;&nbsp; **requires** for no Bookings to already be created in the Room
+
+&nbsp;&nbsp;&nbsp;&nbsp; **effects** removes the room from the set of Rooms
+
 
 **additional notes**
 
@@ -240,13 +255,14 @@ Similarly, I won't punish a user for making multiple bookings at the same time &
 When a slot is booked, the slot is removed from the Room's set of slots, because the Room's set of slots represents *free* slots.
 Slots have a fixed amount of time and do not overlap other slots. Slots exist with a half-hour in them, so a slot for 3:00 goes from 3-3:30. If someone wants to book something from 3-5:30 pm, they would book(Me, 304, 6/60, start: 3:00, end: 5:00) and then the book action would remove the 3:00 slot, the 3:30, the 4:00, the 4:30, and the 5:00 slot from the available slots in that room. The booking associated would contain Me, the 3:00, the 3:30, the 4:00, the 4:30, and the 5:00 slot. *The end is an inclusive time.*
 
+
 ### URL Shortener
 
 **concept** URLShortener
 
-**purpose** creates a shorter link that redirects to the longer link provided
+**purpose** allows for the user to type in a shorter, simpler link to go to the creator's desired link
 
-**principle** a creator will input a long link into the website. There, they can either autogenerate a suffix or create one of their own. When users click the url that has the suffix attached to it, they will be redirected to the long link.
+**principle** a creator will input a long link into the website. There, they can either autogenerate a suffix or create one of their own. When users click/type in the url that has the suffix attached to it, they will be redirected to the long link.
 
 **state**
 
@@ -294,7 +310,7 @@ deleteLink is there so that someone doesn't accidentally camp on a commonly used
 
 **concept** TimelyTemporaryToken
 
-**purpose** to improve security by requiring an additional, time-based, and nonreusable step in gaining access to and authenticating an account, ensuring access to the account can only be possible if you physically possess a selected device and if you know the password
+**purpose** to improve security by requiring an additional, time-based, and nonreusable step in gaining access to and authenticating an account; a means of identifying users through a physical and mental component.
 
 **principle** a user has an account that they link to the generator. Then, the next time they wish to sign into their account, they are prompted to enter the token that appears on their TOTP generator. When the user tries to log in with the token, but the token times out before they can, the authentication fails. When the user enters the token correctly and in a timely manner, authentication succeeds, so this token cannot be used to log into the account again and is thrown out.
 
