@@ -317,6 +317,8 @@ deleteLink is there so that someone doesn't accidentally camp on a commonly used
 **state**
 a set of Users with
 
+&nbsp;&nbsp;&nbsp;&nbsp; a Name
+
 &nbsp;&nbsp;&nbsp;&nbsp; a set of TokenGenerators
 
 &nbsp;&nbsp;&nbsp;&nbsp; a TimeBeforeDeletion
@@ -331,11 +333,17 @@ a TokenGenerator with
 
 **actions**
 
-**setTimeBeforeDeletion** (user: User, timeBeforeDelete: TimeBeforeDeletion)
+**createUser** (timeBeforeDelete: TimeBeforeDeletion, name: Name): (user: User)
 
-&nbsp;&nbsp;&nbsp;&nbsp; **requires** the timeBeforeDelete to not be negative or zero
+&nbsp;&nbsp;&nbsp;&nbsp; **requires** the timeBeforeDelete to not be negative or zero, name to not already exist for a user already
 
-&nbsp;&nbsp;&nbsp;&nbsp; **effects** sets the user's timeBeforeDeletion to timeBeforeDelete
+&nbsp;&nbsp;&nbsp;&nbsp; **effects** creates a User with name Name and timeBeforeDelete timeBeforeDeletion, adds it to the set of Users, returns the user
+
+**deleteUser** (user: User)
+
+&nbsp;&nbsp;&nbsp;&nbsp; **requires** the user to exist in the set of Users
+
+&nbsp;&nbsp;&nbsp;&nbsp; **effects** removes the user from the set of Users
 
 **linkAccount** (user: User, account: Account): (tokenGenerator: TokenGenerator)
 
