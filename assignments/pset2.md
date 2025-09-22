@@ -4,17 +4,17 @@
 
 ## Concept Questions
 
-1. Contexts. The NonceGeneration concept ensures that the short strings it generates will be unique and not result in conflicts. What are the contexts for, and what will a context end up being in the URL shortening app?
+### 1. Contexts. The NonceGeneration concept ensures that the short strings it generates will be unique and not result in conflicts. What are the contexts for, and what will a context end up being in the URL shortening app?
 
 The context is used for storing all other suffixes/nonces used or even returned prior to the current one. In the URL shortening app, the context would likely end up being a set of suffixes, as you wouldn't want to reuse URLs, as otherwise a targetURL that's supposed to connect to a shortURL would end up broken. The context will represent the shortURLBases, however, since the same suffix can be used for multiple bases, thus would need differing contexts.
 
-2. Storing used strings. Why must the NonceGeneration store sets of used strings? One simple way to implement the NonceGeneration is to maintain a counter for each context and increment it every time the generate action is called. In this case, how is the set of used strings in the specification related to the counter in the implementation? (In abstract data type lingo, this is asking you to describe an abstraction function.)
+### 2. Storing used strings. Why must the NonceGeneration store sets of used strings? One simple way to implement the NonceGeneration is to maintain a counter for each context and increment it every time the generate action is called. In this case, how is the set of used strings in the specification related to the counter in the implementation? (In abstract data type lingo, this is asking you to describe an abstraction function.)
 
 It needs to store sets of used strings because there may be different contexts for certain suffixes that can be used twice, and so within a context the URL will remain unique. For instance, if there are 2 contexts for 2 base URL domains, then you can have a tiny.com/myurl and a shorter.com/myurl. MyURL here can be used twice and shouldn't be in the same context because ultimately they'll be different links.
 
 The set of used strings in the spec is related to the counter as the counter will be however many nonces have been generated for a certain context. The counter could also be used as a way to see if they are going to run out of suffixes based on the number of possible suffixes, so an admin can fix it. AF(counter, usedStrings) = A NonceGeneration with a set of contexts, with all of those contexts containing nonces that cannot be generated again (usedStrings), and a counter to represent how many nonces have already been generated and cannot be used again.
 
-3. Words as nonces. One option for nonce generation is to use common dictionary words (in the style of yellkey.com, for example) resulting in more easily remembered shortenings. What is one advantage and one disadvantage of this scheme, both from the perspective of the user? How would you modify the NonceGeneration concept to realize this idea?
+### 3. Words as nonces. One option for nonce generation is to use common dictionary words (in the style of yellkey.com, for example) resulting in more easily remembered shortenings. What is one advantage and one disadvantage of this scheme, both from the perspective of the user? How would you modify the NonceGeneration concept to realize this idea?
 
 Advantage: A string like "DogAndCat" is a lot more memorable and thus can be typed way faster than a string like "aP6fG!k8^", even though they are the same exact amount of characters. Thus, users would probably find "DogAndCat" more preferable to "aP6fG!k8^".
 
@@ -26,14 +26,54 @@ In order to modify NonceGeneration to support common dictionary nonces, for its 
 
 ## Synchronizations for URL Shortening: Synchronization Questions
 
-1. Partial matching. In the first sync (called generate), the Request.shortenUrl action in the when clause includes the shortUrlBase argument but not the targetUrl argument. In the second sync (called register) both appear. Why is this?
+### 1. Partial matching. In the first sync (called generate), the Request.shortenUrl action in the when clause includes the shortUrlBase argument but not the targetUrl argument. In the second sync (called register) both appear. Why is this?
 
-2. Omitting names. The convention that allows names to be omitted when argument or result names are the same as their variable names is convenient and allows for a more succinct specification. Why isn’t this convention used in every case?
+You see, you don't actually need targetUrl to generate the nonce for the context, which is the base. All this action wants to do is create a nonce that doesn't have a conflict with any of the previously generated nonces in this context. This requires the context of what has been generated previously, as to not get a conflict, and that's about it. The targetUrl isn't necessary for this step, as we aren't associating the shortURL with the targetURL in this sync. That's a different function.
 
-3. Inclusion of request. Why is the request action included in the first two syncs but not the third one?
+### 2. Omitting names. The convention that allows names to be omitted when argument or result names are the same as their variable names is convenient and allows for a more succinct specification. Why isn’t this convention used in every case?
 
-4. Fixed domain. Suppose the application did not support alternative domain names, and always used a fixed one such as “bit.ly.” How would you change the synchronizations to implement this?
-Adding a sync. These synchronizations are not complete; in particular, they don’t do anything when a resource expires. Write a sync for this case, using appropriate actions from the ExpiringResource and URLShortening concepts.
+Maybe you want to be more specific for certain cases, and rename things based on what they are used for, rather than what their argument/result is. For instance, for the register sync, the variable shortUrlSuffix is bound to nonce. Nonce can mean many different things, all it is is a randomly generated string that doesn't allow previous generations, which can be used for many things, like username generation, password generation, date generation, etc. Specifying that nonce, in this case, is referring to a shortUrlSuffix, makes it clear that it'll eventually be paired with the shortUrlBase variable. Not using this convention in all cases makes the code easier to understand.
+
+### 3. Inclusion of request. Why is the request action included in the first two syncs but not the third one?
+
+Both generate and register depend upon the request of a user and the arguments that get passed in for the Request action. For generate, the sync requires the shortUrlBase for the context from the Request.shortenUrl action. And for register, the register action depends on the shortUrlBase and the targetUrl, both which come from the Request.shortenUrl action. However, setExpiry happens after the shortURL has been generated and doesn't require the shortUrlBase nor the targetUrl in order to set when the shortURL should expire. Thus, it only depends on what UrlShortening.register returns, and doesn't require Request.
+
+### 4. Fixed domain. Suppose the application did not support alternative domain names, and always used a fixed one such as “bit.ly.” How would you change the synchronizations to implement this?
+
+I would make it so the syncs no longer depend on what the base is, by removing the bases and instead having a context that accounts for all links that are generated, which will be tied to fixedBase. The syncs would no longer depend on shortUrlBase, and would no longer list them in the sync.
+
+    sync generate
+
+    when Request.shortenUrl ()
+
+    then NonceGeneration.generate (context: fixedBase)
+
+
+    sync register
+
+    when
+
+    .shortenUrl (targetUrl)
+
+    NonceGeneration.generate (): (nonce)
+
+    then UrlShortening.register (shortUrlSuffix: nonce, fixedBase, targetUrl)
+
+
+    sync setExpiry
+
+    when UrlShortening.register (): (shortUrl)
+
+    then ExpiringResource.setExpiry (resource: shortUrl, seconds: 3600)
+
+### 5. Adding a sync. These synchronizations are not complete; in particular, they don’t do anything when a resource expires. Write a sync for this case, using appropriate actions from the ExpiringResource and URLShortening concepts.
+
+**sync** expire
+
+**when** ExpiringResource.expireResource () : (resource: shortUrl)
+
+**then** UrlShortening.delete (shortUrl)
+
 
 ---
 
@@ -42,8 +82,180 @@ Adding a sync. These synchronizations are not complete; in particular, they don�
 
 ### Additional concepts
 
+---
+
+#### Additional Concept 1: AnalyticsViewer
+
+**concept** AnalyticsViewer [Shortenings]
+
+**purpose** to store a certain user's analytics regarding the use of their shortened URLs
+
+**principle** a user associates a long link with a short link, which adds it to the AnalyticsViewer. As people start to use the shortened link, the original user views the analytics of the shortened link, and it shows how many have clicked it.
+
+**state**
+
+&nbsp;&nbsp;&nbsp;&nbsp; a set of Users with
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a username
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a password
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a set of Shortenings
+
+**actions**
+
+&nbsp;&nbsp;&nbsp;&nbsp; createUser (username: String, password: String) : (user)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **requires** the username to not exist within the set of Users
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **effect** creates a new User with the username, password, and an empty set of Shortenings.
+
+
+&nbsp;&nbsp;&nbsp;&nbsp; makeShortening (user, shortUrl, targetUrl) : (shortening)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **requires** the user to exist within the set of users
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **effect** creates a shortening out of the shortUrl and the targetUrl, adds the shortening to the user's set of shortenings, and finally returns the shortening.
+
+
+&nbsp;&nbsp;&nbsp;&nbsp; deleteShortening (user, shortening)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **requires** the user to exist within the set of users, the shortening to exist within the user's set of shortening
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **effect** removes the shortening from the user's list of shortening
+
+
+&nbsp;&nbsp;&nbsp;&nbsp; authenticateToViewAnalytics (username: String, password: String, shortUrl: String): (user: User)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **requires** requires the username to exist in the set of Users, for said user to have a matching username and password, and for shortUrl to exist within said user's shortenings
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **effects** returns the User associated with the username and password
+
+
+&nbsp;&nbsp;&nbsp;&nbsp; authenticate (username: String, password: String): (user: User)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **requires** requires the username to exist in the set of Users and for said user to have a matching username and password
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **effects** returns the User associated with the username and password
+
+---
+
+#### Additional Concept 2: AccessCounter
+
+**concept** AccessCounter [User, Shortening]
+
+**purpose** count the number of times people access a website
+
+**principle** a user shortens a link and it gets added here. Every time a person goes to the short link and is redirected to the long link, the counter increments.
+
+**state**
+
+&nbsp;&nbsp;&nbsp;&nbsp; a set of Users with
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a set of ShortCounters
+
+&nbsp;&nbsp;&nbsp;&nbsp; a ShortCounter with
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a Shortening
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a Counter Number
+
+**actions**
+
+&nbsp;&nbsp;&nbsp;&nbsp; addShortCounter (user, shortening)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **requires** user must exist in the set of users, shortening must not already be present in the set of the user's ShortCounters
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **effect** creates a ShortCounter based on the shortening and counter, which starts off as 0, and adds the shortCounter to the set of the user's shortCounters
+
+
+&nbsp;&nbsp;&nbsp;&nbsp; increaseCounter (user, shortUrl: String) : (counter: Number)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **requires** shortUrl must exist within the set of ShortCounter's Shortening's shortUrls.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **effect** within the set of shortcounters, it finds the matching ShortCounter for the shortUrl, increments the matching counter by 1, and returns the counter.
+
+
+&nbsp;&nbsp;&nbsp;&nbsp; viewCounter (user, shortUrl: String) : (counter: Number)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **requires** shortUrl must exist within the set of ShortCounter's Shortening's shortUrls.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **effect** within the set of ShortCounters, it finds the matching ShortCounter for the shortUrl, displays it, and returns the counter.
+
+---
 
 ### 3 Essential Syncs
 
+#### Sync 1: when shortenings are created
+
+**sync** shorteningCreation
+
+**when**
+
+&nbsp;&nbsp;&nbsp;&nbsp; UrlShortening.register (targetUrl: String): (shortUrl: String)
+
+&nbsp;&nbsp;&nbsp;&nbsp; AnalyticsViewer.authenticate (username: String, password: String): (user)
+
+**then**
+
+&nbsp;&nbsp;&nbsp;&nbsp; AnalyticsViewer.makeShortening (user, shortUrl, targetUrl) : (shortening)
+
+&nbsp;&nbsp;&nbsp;&nbsp; AccessCounter.addShortCounter(user, shortening)
+
+---
+
+#### Sync 2: when shortenings are translated to targets
+
+**sync** redirectLink
+
+**when**
+
+&nbsp;&nbsp;&nbsp;&nbsp; UrlShortening.lookup (shortUrl: String): (targetUrl: String)
+
+&nbsp;&nbsp;&nbsp;&nbsp; AnalyticsViewer.authenticate (username: String, password: String): (user)
+
+**then** AccessCounter.increaseCounter (user, shortUrl: String) : (counter: Number)
+
+---
+
+#### Sync 3: when a user examines analytics
+
+**sync** examineLink
+
+**when** AnalyticsViewer.authenticateToViewAnalytics (username: String, password: String, shortUrl: String): (user)
+
+**then** AccessCounter.viewCounter (user, shortUrl: String) : (counter: Number)
+
+---
 
 ### Feature Requests
+
+#### Allowing users to choose their own short URLs;
+
+This would be desirable, as it would allow for personalized links. For instance, instead of a Dog Groomer's short url being "hamburger", it could be "DogGroomer", which would be on brand. I would tweak URLShort
+
+---
+
+#### Using the “word as nonce” strategy to generate more memorable short URLs;
+
+
+
+---
+
+#### Including the target URL in analytics, so that lookups of different short URLs can be grouped together when they refer to the same target URL;
+
+
+
+---
+
+#### Generate short URLs that are not easily guessed;
+
+
+
+---
+
+#### Supporting reporting of analytics to creators of short URLs who have not registered as user.
+
+
+
+---
