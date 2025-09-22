@@ -32,7 +32,7 @@ You see, you don't actually need targetUrl to generate the nonce for the context
 
 ### 2. Omitting names. The convention that allows names to be omitted when argument or result names are the same as their variable names is convenient and allows for a more succinct specification. Why isn’t this convention used in every case?
 
-Maybe you want to be more specific for certain cases, and rename things based on what they are used for, rather than what their argument/result is. For instance, for the register sync, the variable shortUrlSuffix is bound to nonce. Nonce can mean many different things, all it is is a randomly generated string that doesn't allow previous generations, which can be used for many things, like username generation, password generation, date generation, etc. Specifying that nonce, in this case, is referring to a shortUrlSuffix, makes it clear that it'll eventually be paired with the shortUrlBase variable. Not using this convention in all cases makes the code easier to understand.
+Maybe you want to be more specific for certain cases, and rename things based on what they are used for, rather than what their argument/result is. For instance, for the register sync, the variable shortUrlSuffix is bound to nonce. Nonce can mean many different things, all it is is a randomly generated string that doesn't allow previous generations, which can be used for many things, like username generation, password generation, date generation, etc. Specifying that nonce, in this case, is referring to a shortUrlSuffix, makes it clear that it'll eventually be paired with the shortUrlBase variable. Not using this convention in all cases makes the code easier to understand. This is also not used because UrlShortening.register takes in shortUrlSuffix, so bounding nonce to shortUrlSuffix makes it clear what you are using nonce for and how that relates to UrlShortening's register action. On first glance someone might get it confused and think you're passing nonce for the base.
 
 ### 3. Inclusion of request. Why is the request action included in the first two syncs but not the third one?
 
@@ -194,7 +194,7 @@ I would make it so the syncs no longer depend on what the base is, by removing t
 
 &nbsp;&nbsp;&nbsp;&nbsp; UrlShortening.register (targetUrl: String): (shortUrl: String)
 
-&nbsp;&nbsp;&nbsp;&nbsp; AnalyticsViewer.authenticate (username: String, password: String): (user)
+&nbsp;&nbsp;&nbsp;&nbsp; AnalyticsViewer.authenticate () : (user)
 
 **then**
 
@@ -210,9 +210,9 @@ I would make it so the syncs no longer depend on what the base is, by removing t
 
 **when**
 
-&nbsp;&nbsp;&nbsp;&nbsp; UrlShortening.lookup (shortUrl: String): (targetUrl: String)
+&nbsp;&nbsp;&nbsp;&nbsp; UrlShortening.lookup (shortUrl: String): ()
 
-&nbsp;&nbsp;&nbsp;&nbsp; AnalyticsViewer.authenticate (username: String, password: String): (user)
+&nbsp;&nbsp;&nbsp;&nbsp; AnalyticsViewer.authenticate () : (user)
 
 **then** AccessCounter.increaseCounter (user, shortUrl: String) : (counter: Number)
 
@@ -222,7 +222,7 @@ I would make it so the syncs no longer depend on what the base is, by removing t
 
 **sync** examineLink
 
-**when** AnalyticsViewer.authenticateToViewAnalytics (username: String, password: String, shortUrl: String): (user)
+**when** AnalyticsViewer.authenticateToViewAnalytics (shortUrl: String): (user)
 
 **then** AccessCounter.viewCounter (user, shortUrl: String) : (counter: Number)
 
@@ -232,30 +232,30 @@ I would make it so the syncs no longer depend on what the base is, by removing t
 
 #### Allowing users to choose their own short URLs;
 
-This would be desirable, as it would allow for personalized links. For instance, instead of a Dog Groomer's short url being "hamburger", it could be "DogGroomer", which would be on brand. I would tweak URLShort
+This would be desirable, as it would allow for personalized links. For instance, instead of a Dog Groomer's short url being "hamburger", it could be "DogGroomer", which would be on brand. URLShortener already has register which allows people to put in a suffix of their choice, so I would change the register sync so that Request.shortenUrl would take in a suffix and delete the nonce generation. However, if the URLShortener's register fails because that suffix already exists, I would display to the user that that suffix is already taken.
 
 ---
 
 #### Using the “word as nonce” strategy to generate more memorable short URLs;
 
-
+Although it would make typing URL much easier, I think that the frustration of running out of words and being unable to shorten a URL until one frees up would be much more irritating than having to type a simpler URL. Therefore, I do not want to implement this.
 
 ---
 
 #### Including the target URL in analytics, so that lookups of different short URLs can be grouped together when they refer to the same target URL;
 
-
+I don't think this one should be implemented either-- for what reason would someone use multiple shortURLs to refer to the same target URL? Not only does this take up URLs that other people could be using, but it also complicates things unnecessarily. A user might think the website is broken, for instance, since they would expect 2 different short URLs to lead to different places, only to discover they lead to the same place, and think something had gone wrong. And if multiple users are generating short URLs to the same target URL, then I don't think those analytics should be shared between them either, as that could breach security.
 
 ---
 
 #### Generate short URLs that are not easily guessed;
 
-
+This could be a good idea. Imagine a troll was trying to find websites to mess with, and decides to go to tiny.url/aaaa just because it is named "aaaa". Having short URLs that aren't easily guessed would increase privacy. Inside of nonce generation, during the generate action, we would want to specify that generation shouldn't have repeating letters and should include a variety of characters, like at least 1 uppercase, 1 lowercase, 1 number, 1 special character, etc.
 
 ---
 
 #### Supporting reporting of analytics to creators of short URLs who have not registered as user.
 
-
+This would be a good idea, since it would get rid of a lot of *friction* that would occur due to people having to register as a user to gain those analytics, but how would we verify that it is actually them? I would create a new concept called EmailReport (with a state of an EmailURLGroup, which has an email, a Shortening, and a TimeStep), which would associate a Shortening to an email. Then, when they create a short URL and decide they want to have analytics but don't want to create an account, they would give their email and how often they want to be sent analysis of their URLs. Then, every TimeStep, their email would be sent an update on the analytics of their Shortening. No longer would someone have to have a user to gain this analysis, they could also be sent it autonomously with an email. The downside is they wouldn't be able to access it on-command, as anyone could guess their email and it would be silly to give them the analytics based on the fact that they know an email.
 
 ---
