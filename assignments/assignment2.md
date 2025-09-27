@@ -188,7 +188,7 @@ and be treated each time as the same user
 
 &nbsp;&nbsp;&nbsp;&nbsp; **keywordGenerator** (fic) : (suggestedTags: Category)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **effect** using a LLM, the LLM will examine the fic's ficText's contents, and associates the top 20 most relevant tags to the content in a suggestedTags Category to the Fic and (if there is not an FicCategory already associated with fic) creates a new FicCategory out of those and adds the FicCategory to the set of FicCategories, or (if there is an FicCategory associated with the fic) adds the suggestedTags to said ficCategory. Finally, it returns the suggestedTags.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **effect** using a LLM, the LLM will examine the fic's ficText's contents, and associates the top 20 most relevant tags (WITHOUT suggesting tags already included in the fic's authorTags) to the content in a suggestedTags Category to the Fic and (if there is not an FicCategory already associated with fic) creates a new FicCategory out of those and adds the FicCategory to the set of FicCategories, or (if there is an FicCategory associated with the fic) adds the suggestedTags to said ficCategory. Finally, it returns the suggestedTags.
 
 &nbsp;&nbsp;&nbsp;&nbsp; **tagCategorization** (tag: String) : (type: String)
 
@@ -320,12 +320,24 @@ and be treated each time as the same user
 
 ### Brief Note
 
-
+The UserAuthentication is used so that nobody can access other's fanfictions, so that all fanfictions will be categorized under a user's profile/ account. It's also so that no other users can impact another person's fanfictions, like delete a fanfiction, as fanfiction access will be limited to the original user who created it. The Library is to contain everyone's fanfics and make it so that they are all under one user's account. Instead of having to go through everyone's fanfictions publically, the fanfictions submitted are private and will only show up under the user's own account. This also allows you to submit fanfictions, delete fanfictions, etc. Categorization takes care of the nitty-gritty tag/fanfic categorization issues, such as suggesting tags for a fanfiction, suggesting to remove tags from a fanfiction (which occur upon Library submitting a fic).
 
 ## UI Sketch
 
+![CreateAccount](CreateAccount.png)
 
+![Login](Login.png)
+
+![MainHomepage](<MainHomepage.png>)
+
+![CreateNewFanfic](<CreateNewFanfic.png>)
+
+![FanficDetails](FanficDetails.png)
 
 ## User Journey
 
 A new author is confused at the tagging system of AO3, and goes to my website to seek help. After registering, they go to their profile, click "Get Tag Recommendations", which sends them to a form where they fill out the name, copy and paste the fic text into a box, and fill out another box of tags they've thought of. Then, they click "submit", and are shown their results: suggested tags to add and tags to remove from the author's list of tags. When they click their profile again, they see their fic listed under their profile. They feel more confident in posting their fic because they now know how to tag and understand tagging etiquette.
+
+## Side note
+
+If you're wondering where I shall get a database of tags to generate for the LLM to train on, it so happens that AO3 already released a whole database for that! [Here is is](https://archiveofourown.org/admin_posts/18804)
