@@ -28,3 +28,5 @@ My goals for the semester:
 [Link to PSET 2](assignments/pset2.md)
 
 [Link to Assignment 2](assignments/assignment2.md)
+
+[Link to Assignment 3](intro-gemini-schedule/README.md)
